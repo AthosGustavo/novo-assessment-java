@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.NativeQuery;
 
 import java.util.List;
 
@@ -75,6 +76,11 @@ public class AutorRepository {
     boolean isRemoved = false;
 
     try {
+      Livro possuiLivro = verificaSeAutorPossuiLivro(id);
+      if(possuiLivro != null){
+        livroRepository.removerLivro(possuiLivro.getId());
+      }
+
       iniciaTransacao = this.session.beginTransaction();
       Autor autor = this.session.get(Autor.class, id);
       if (autor != null) {
@@ -91,5 +97,27 @@ public class AutorRepository {
     }
 
     return isRemoved;
+  }
+
+  public Livro verificaSeAutorPossuiLivro(Long id) {
+    Transaction iniciaTransacao = null;
+    Livro livro = null;
+
+    try {
+      iniciaTransacao = this.session.beginTransaction();
+      String sql = "SELECT * FROM Livro WHERE autor_id = :id";
+      NativeQuery query = this.session.createNativeQuery(sql, Livro.class);
+      query.setParameter("id", id);
+      livro = (Livro) query.uniqueResult();
+      iniciaTransacao.commit();
+    } catch (Exception e) {
+      if (iniciaTransacao != null) {
+        iniciaTransacao.rollback();
+      }
+      System.out.println(e.getMessage());
+      throw e;
+    }
+
+    return livro;
   }
 }

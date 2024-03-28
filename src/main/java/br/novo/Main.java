@@ -1,6 +1,7 @@
 package br.novo;
 
 import br.novo.Controller.AutorController;
+import br.novo.Controller.ClienteController;
 import br.novo.Controller.LivroController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,7 @@ public class Main {
 
     LivroController livroController = new LivroController();
     AutorController autorController = new AutorController();
+    ClienteController clienteController = new ClienteController();
 
     Spark.port(8080);
     //contratoAtivo sem valor
@@ -20,7 +22,7 @@ public class Main {
     Spark.post("/cadastro/livro", livroController.cadastraLivroController);
     Spark.get("/livro", livroController.exibirLivroController);
     Spark.delete("remove/livro/:idLivro", livroController.removerLivroController);
-    //fazer um metodo para cadastrar um livro para um autor existente
+    //fazer método update
 
     //Autor
     Spark.get("/autor", autorController.exibirAutorController);
@@ -28,6 +30,10 @@ public class Main {
     Spark.post("/cadastro/livro/autor", autorController.cadastraLivroParaAutorExistenteController);
     Spark.put("/editar/autor/:id", autorController.editarAutorController);
     Spark.delete("/excluir/autor/:id", autorController.removerAutorController);
+
+    //Cliente
+    Spark.post("/cadastro/cliente", clienteController.cadastraClienteController);
+    Spark.post("/aluguel/livro", clienteController.alugaLivroController);
     
     //Fazer um método para cadastrar autor sem livro
 
