@@ -32,6 +32,7 @@ public class Main {
     Spark.delete("/excluir/autor/:id", autorController.removerAutorController);
 
     //Cliente
+    Spark.get("/cliente", clienteController.exibirClienteController);
     Spark.post("/cadastro/cliente", clienteController.cadastraClienteController);
     Spark.post("/aluguel/livro", clienteController.alugaLivroController);
     

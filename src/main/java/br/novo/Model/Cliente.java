@@ -16,4 +16,30 @@ public class Cliente extends Pessoa {
   public Cliente(String nome, String rg, String cpf, String endereco) {
     super(nome, rg, cpf, endereco);
   }
+
+  public Cliente(){
+    super();
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public Livro getLivros() {
+    return livros;
+  }
+
+  public void setLivros(Livro livros) {
+    this.livros = livros;
+  }
+
+  @Override
+  public String toString() {
+    return super.toString() +
+      "Cliente{" +
+      "id=" + id +
+      ", livros=" + livros +
+      '}';
+  }
+
 }

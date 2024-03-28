@@ -12,7 +12,8 @@ public class ClienteController {
   public ClienteController(){
     this.clienteService = new ClienteService();
   }
-  public Route cadastraClienteController = (Request req, Response res) -> clienteService.cadastraClienteService(req);
 
+  public Route exibirClienteController = (Request req, Response res) -> clienteService.exibirClienteService();
+  public Route cadastraClienteController = (Request req, Response res) -> clienteService.cadastraClienteService(req);
   public Route alugaLivroController = (Request req, Response res) -> clienteService.alugaLivroService(req);
 }
